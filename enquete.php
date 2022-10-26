@@ -1,7 +1,6 @@
 <?php
 session_start();
 $pdo = new PDO("mysql:host=localhost;dbname=devweb", 'root', '');
-
 ?>
 
 <h2>Enquetes Ativas:</h2>
@@ -18,14 +17,10 @@ if (isset($_POST['acao'])) {
         }
         setcookie('voto', 'true', time() + 60 * 60 * 24, '/');
         $resposta_id = $_POST['resposta_id'];
-
         $count = $pdo->prepare("SELECT votos FROM enquete WHERE id = ?");
         $count->execute(array($resposta_id));
-
         $atual = $count->fetch()['votos'] + 1;
-
         $pdo->exec("UPDATE enquete SET votos = $atual WHERE id = $resposta_id");
-
         echo '<h2>Sua votação foi computada com sucesso!</h2>';
     } else {
         echo '<h2>Você já votou!</h2>';
