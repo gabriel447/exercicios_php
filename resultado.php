@@ -1,4 +1,4 @@
 <?php
 session_start();
-session_destroy();
+// session_destroy();
 print_r($_SESSION['respostas']);

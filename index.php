@@ -3,7 +3,8 @@
 session_start();
 
 $perguntas = ['Qual seu nome?', 'Qual sua idade?', 'Qual sua cor favorita?', 'Qual seu melhor amigo?'];
-$_SESSION['respostas'] = array();
+if (!isset($_SESSION['respostas']))
+    $_SESSION['respostas'] = array();
 
 if (isset($_POST['acao'])) {
     $_SESSION['respostas'][$_POST['count']] = $_POST['resposta'];
