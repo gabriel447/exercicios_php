@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-session_destroy();
 $_SESSION['perguntas'][] = "Quanto custa o curso?";
 $_SESSION['perguntas'][] = "Posso Parcelar?";
 
@@ -31,7 +30,8 @@ if (isset($_POST['acao'])) {
     <?php
     if (isset($resposta)) {
         echo '<h2>Sua Resposta com base na pergunta, provavelmente é: </h2>' . $resposta;
-    } else if (isset($_POST['acao']))
+    } else if (isset($_POST['acao'])) {
         echo '<h2>Ops... Nosso Robô não entendeu a sua pergunta :(</h2>' . $resposta;
+    }
     ?>
 </form>
