@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+// session_destroy();
 $_SESSION['perguntas'][] = "Quanto custa o curso?";
 $_SESSION['perguntas'][] = "Posso Parcelar?";
 
@@ -20,6 +21,10 @@ if (isset($_POST['acao'])) {
             break;
         }
     }
+} else if (isset($_POST['cadastrar_resposta'])) {
+    $_SESSION['perguntas'][] = $_POST['pergunta'];
+    $_SESSION['respostas'][] = $_POST['resposta'];
+    echo '<script>alert("Obrigado, você me ajudou a aprender um pouco mais :)</script>';
 }
 
 ?>
@@ -31,7 +36,26 @@ if (isset($_POST['acao'])) {
     if (isset($resposta)) {
         echo '<h2>Sua Resposta com base na pergunta, provavelmente é: </h2>' . $resposta;
     } else if (isset($_POST['acao'])) {
-        echo '<h2>Ops... Nosso Robô não entendeu a sua pergunta :(</h2>' . $resposta;
+        echo '<h2>Ops... Nosso Robô não entendeu a sua pergunta :(</h2>';
+        $criarResposta = true;
     }
     ?>
 </form>
+
+<?php
+
+if (isset($criarResposta) && isset($_POST['acao'])) {
+
+
+?>
+
+    <form method="post">
+        <h2>Tem alguma ideia da resposta, para ajudar o robo a aprender mais?</h2>
+        <input type="text" name="resposta">
+        <input type="hidden" name="pergunta" value="<?php echo $_POST['pergunta'] ?>">
+        <input type="submit" name="cadastrar_resposta">
+    </form>
+
+<?php
+}
+?>
